@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Статистика{% endblock %}
+
+{% block content %}
+<h1 style="color:navy">СТАТИСТИКА</h1>
+<br>
+<h3>Всего опрос прошло: {{ n_resp }}</h3>
+<h3>Из них корейский знают: {{ know_kor }} ({{ know_kor_per }}%)</h3>
+<br>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <h4>
+            <details>
+                <summary>Статистика по фамилиям:</summary>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope='col col-sm-12'>Фамилия</th>
+                                <th scope='col col-sm-12'>Знакомы с ней</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for surn in sorted_surn %}
+                                <tr>
+                                    <td>{{ surn[1][1] }}</td>
+                                    <td>{{ surn[1][0] }} ({{ surn[1][0] / n_resp * 100 }}%)</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </details>
+        </h4>
+    </div>
+   <div class="col-sm">
+    <h4>
+        <details>
+            <summary>Какие имена предлагали участники анкеты:</summary>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope='col col-sm-12'>Имя</th>
+                            <th scope='col col-sm-12'>Количество</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key in suggested.keys() %}
+                            <tr>
+                                <td>{{ key }}</td>
+                                <td>{{ suggested[key] }} ({{ suggested[key] / n_resp * 100 }}%)</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </details>
+    </h4>
+   </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <h4>
+            <details>
+                <summary>Как часто склоняют женские имена:</summary>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope='col col-sm-12'>Имя</th>
+                                <th scope='col col-sm-12'>Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key in names_f.keys() %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td>{{ n_resp - names_f[key][0] }} ({{ (n_resp - names_f[key][0]) / n_resp * 100 }}%)</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </details>
+        </h4>
+    </div>
+    <div class="col-sm">
+        <h4>
+            <details>
+                <summary>Как часто склоняют мужские имена:</summary>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope='col col-sm-12'>Имя</th>
+                                <th scope='col col-sm-12'>Количество</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key in names_m.keys() %}
+                                <tr>
+                                    <td>{{ key }}</td>
+                                    <td>{{ n_resp - names_m[key][0] }} ({{ (n_resp - names_m[key][0]) / n_resp * 100 }}%)</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+            </details>
+        </h4>
+    </div>
+</div>
+<br>
+<div class="row">
+    <div class="col-sm">
+        <h4>
+            <details>
+                <summary>В каких формах используют женские имена:</summary>
+                    {% for key in names_f.keys() %}
+                        <ul>
+                            <li>
+                                <p>{{ ', '.join(names_f[key][1]) }}</p>
+                            </li>
+                        </ul>
+                    {% endfor %}
+            </details>
+        </h4>
+    </div>
+    <div class="col-sm">
+        <h4>
+            <details>
+                <summary>В каких формах используют мужские имена:</summary>
+                    {% for key in names_m.keys() %}
+                        <ul>
+                            <li>
+                                <p>{{ ', '.join(names_m[key][1]) }}</p>
+                            </li>
+                        </ul>
+                    {% endfor %}
+            </details>
+        </h4>
+    </div>
+</div>
+<br>
+<br>
+<h3 align="center">Какие имена воспринимаются женскими, а какие мужскими?</h3>
+<p>*если в вопросе "Какие имена могут дать девочке?" были выбраны имена A и B, а X и Y не были, 
+    то A и B засчитывались как женские имена, а X и Y как мужские, и наоборот.</p>
+<img src="static/gen_names1.png" class='d-block w-100', alt="Имена">
+<br>
+<img src="static/gen_names2.png" class='d-block w-100', alt="Имена">
+
+
+{% endblock %}

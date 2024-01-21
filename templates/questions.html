@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+
+{% block title %}Анкета{% endblock %}
+
+{% block content %}
+<h1 style="color:navy">АНКЕТА</h1>
+<br>
+<form method="POST">
+    <h4>{{ questions[0].question }}</h4>
+        <input type="text" id="name" name="name" class="form-control">
+        <br>
+    <h4>{{ questions[1].question }}</h4>
+        <input type="number" id="age" name="age" class="form-control">
+        <br>
+    <h4>{{ questions[2].question }}</h4> 
+        <input type="text" id="L1" name="L1" class="form-control">
+        <br>
+    <h4>{{ questions[3].question }}</h4>
+        <input id="yes" type="radio" name="kor_yes_no" value="yes">
+        <label for="yes">Да</label>
+
+        <input id="no" type="radio" name="kor_yes_no" value="no">
+        <label for="no">Нет</label>
+        <br>
+        <br>
+    <h4>{{ questions[4].question }}</h4>
+        <input id="yes" type="radio" name="names_yes_no" value="yes">
+        <label for="yes">Да</label>
+
+        <input id="no" type="radio" name="names_yes_no" value="no">
+        <label for="no">Нет</label>
+        <br>
+        <br>
+    <h4>{{ questions[5].question }}</h4>
+        <input id="name_surn" type="radio" name="order" value="name_surn">
+        <label for="name_surn">Сначала имя, потом фамилия</label>
+        <br>
+        <input id="surn_name" type="radio" name="order" value="surn_name">
+        <label for="surn_name">Сначала фамилия, потом имя</label>
+        <br>
+        <input id="no_dif" type="radio" name="order" value="no_dif">
+        <label for="no_dif">Порядок неважен</label>
+        <br>
+        <input id="no" type="radio" name="order" value="no">
+        <label for="no">Не знаю</label>
+        <br>
+        <br>
+    <h4>{{ questions[6].question }}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Kim"> Ким</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Lee"> Ли</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Park"> Пак</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Jeon"> Чон</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Hwang"> Хван</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Kwon"> Квон</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Yoon"> Юн</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Choi"> Чхве</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Moon"> Мун</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Seo"> Со</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Kang"> Кан</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Yang"> Ян</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Bang"> Бан</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="Boo"> Бу</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="familiar_surn" value="No"> Не знаю ни одной</label>
+                </div>
+            </div>
+        </div>
+        <br>
+    <h4>{{ questions[7].question }}</h4>
+        <input type="text" id="known_name" name="known_name" class="form-control">
+        <br>
+        <input type="text" id="known_name" name="known_name" class="form-control">
+        <br>
+        <input type="text" id="known_name" name="known_name" class="form-control">
+        <br>
+    <h4>{{ questions[8].question }}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Minji"> Минджи</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Minho"> Минхо</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Sua"> Суа</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Jungwoo"> Чону</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Subin"> Субин</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f1" value="Kitae"> Китэ</label>
+                </div>
+            </div>
+        </div>
+        <br>
+    <h4>{{ questions[9].question }}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Chunha"> Чунха</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Eunju"> Ынджу</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Jiah"> Джиа</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Boyeon"> Боён</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Kyongho"> Кёнхо</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m1" value="Sunok"> Сунок</label>
+                </div>
+            </div>
+        </div>
+        <br>
+    <h4>{{ questions[10].question }}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Seunhee"> Сынхи</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Seungsu"> Сынсу</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Nari"> Нари</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Hyejin"> Хеджин</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Namgyu"> Намгю</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_f2" value="Shihyuk"> Шихёк</label>
+                </div>
+            </div>
+        </div>
+        <br>
+    <h4>{{ questions[11].question }}</h4>
+        <div class="container">
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Chaewon"> Чевон</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Haneul"> Ханыль</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Kangmin"> Канмин</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Jeonghyo"> Чонхё</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Jinwoo"> Джину</label>
+                </div>
+                <div class="col col-lg-2">
+                    <label><input type="checkbox" name="name_m2" value="Narae"> Нарэ</label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <br>
+    <h2>Представьте, что у вас много корейских друзей и вы рассказываете о них (называя просто по имени) 
+        своим русскоязычным друзьям. Вставьте указанные имена в предложения в той форме, в какой вы бы употребили их в разговоре.</h2>
+        <br>
+        <br>
+    <h4>{{ questions[12].question }}</h4>
+        <input type="text" id="inflected1" name="inflected1" class="form-control">
+        <br>
+    <h4>{{ questions[13].question }}</h4>
+        <input type="text" id="inflected2" name="inflected2" class="form-control">
+        <br>
+    <h4>{{ questions[14].question }}</h4>
+        <input type="text" id="inflected3" name="inflected3" class="form-control">
+        <br>
+    <h4>{{ questions[15].question }}</h4>
+        <input type="text" id="inflected4" name="inflected4" class="form-control">
+        <br>
+    <h4>{{ questions[16].question }}</h4>
+        <input type="text" id="inflected5" name="inflected5" class="form-control">
+        <br>
+    <h4>{{ questions[17].question }}</h4>
+        <input type="text" id="inflected6" name="inflected6" class="form-control">
+        <br>
+    <h4>{{ questions[18].question }}</h4>
+        <input type="text" id="inflected7" name="inflected7" class="form-control">
+        <br>
+    <h4>{{ questions[19].question }}</h4>
+        <input type="text" id="inflected8" name="inflected8" class="form-control">
+        <br>
+    <h4>{{ questions[20].question }}</h4>
+        <input type="text" id="inflected9" name="inflected9" class="form-control">
+        <br>
+    <h4>{{ questions[21].question }}</h4>
+        <input type="text" id="inflected10" name="inflected10" class="form-control">
+        <br>
+    <input type="submit" value="Отправить ответ" style="background-color:thistle"/>
+</form>
+{% endblock %}
