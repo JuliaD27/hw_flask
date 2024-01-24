@@ -325,8 +325,8 @@ def statistics():
     ax.set_xticks(x)
     ax.set_xticklabels(values)
     plt.xticks(rotation=45)
-    ax.bar_label(rect1, fmt='{:,.0f}')
-    ax.bar_label(rect2, fmt='{:,.0f}')
+    ax.bar_label(rect1)
+    ax.bar_label(rect2)
     ax.legend()
     plt.savefig('static/gen_names1.png')
 
@@ -345,8 +345,8 @@ def statistics():
     ax.set_xticks(x)
     ax.set_xticklabels(values)
     plt.xticks(rotation=45)
-    ax.bar_label(rect1, fmt='{:,.0f}')
-    ax.bar_label(rect2, fmt='{:,.0f}')
+    ax.bar_label(rect1)
+    ax.bar_label(rect2)
     ax.legend()
     plt.savefig('static/gen_names2.png')
  
