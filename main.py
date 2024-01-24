@@ -9,6 +9,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///statistics.db'
 db = SQLAlchemy(app)
 
 
+# в первой таблице всего две колонки -- id и вопросы
+# вопросы вносились в базу данных вручную. эта таблица используется в файле 
+# questions.html для отображения вопросов на странице
 class Questions(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     question = db.Column(db.String(300), nullable=False)
@@ -16,7 +19,7 @@ class Questions(db.Model):
     def __repr__(self):
         return f'{self.question}'
     
-
+# в этой таблице уже пять колонок, появляется связь со следующей таблицей
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50), nullable=False)
@@ -29,7 +32,7 @@ class Users(db.Model):
     def __repr__(self):
         return f'{self.name}'
     
-
+# кроме id пользователя создаем также колонки на вопросы 5-22
 class Answers(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     id_user = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -103,6 +106,7 @@ def questions():
         inflected10 = request.form['inflected10']
         
 
+        # вносим полученные данные в таблицы Users и Answers
         try:
             u = Users(name=name, age=age, native_language=l1, korean=kor_yes_no)
             db.session.add(u)
@@ -135,7 +139,9 @@ def sent():
 @app.route('/statistics')
 def statistics():
     alldata = Users.query.all()
+    # сразу получаем количество всех участников анкеты
     n_resp = len(alldata)
+    # и тех из них, кто занет/учит корейский (в процентах по отношению ко всем)
     know_kor = len(Users.query.filter(Users.korean == 'yes').all())
     know_kor_per = round(know_kor / n_resp * 100, 2)
     
