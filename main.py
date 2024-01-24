@@ -166,6 +166,10 @@ def statistics():
 
     }
 
+    # далее идут словари из имен в вопросах 9-12
+    # ключ -- значение из html, первое число в списке -- количество отметок имени как женского
+    # второй число -- отметки как мужского, имя кириллицей для вывода в статистике
+    # словарь для имен из вопроса 9
     gen_names1 = {
         'Minji': [0, 0, 'Минджи'],
         'Minho': [0, 0, 'Минхо'],
@@ -175,6 +179,7 @@ def statistics():
         'Kitae': [0, 0, 'Китэ']
     }
 
+    # словарь для имен из вопроса 10
     gen_names2 = {
         'Chunha': [0, 0, 'Чунха'],
         'Eunju': [0, 0, 'Ынджу'],
@@ -184,10 +189,15 @@ def statistics():
         'Sunok': [0, 0, 'Сунок']
     }
 
-    f_count1 = []
-    m_count1 = []
-    names1= []
+    # чтобы сделать два графика на все имена из вопросов 9-12,
+    # объединим имена из вопросов 9 и 10 для первого графика и 11 и 12 для второго
 
+    # для первого графика создадим списки 
+    f_count1 = [] # список отметок имен как женских
+    m_count1 = [] # как мужских
+    names1= [] # список имен кириллицей для вывода на графики
+
+    # словарь для имен из вопроса 11
     gen_names3 = {
         'Seunhee': [0, 0, 'Сынхи'],
         'Seungsu': [0, 0, 'Сынсу'],
@@ -197,6 +207,7 @@ def statistics():
         'Shihyuk': [0, 0, 'Шихёк']
     }
 
+    # словарь для имен из вопроса 12
     gen_names4 = {
         'Chaewon': [0, 0, 'Чевон'],
         'Haneul': [0, 0, 'Ханыль'],
@@ -206,6 +217,7 @@ def statistics():
         'Narae': [0, 0, 'Нарэ']
     }
 
+    # такие же списки для второго графика
     f_count2 = []
     m_count2 = []
     names2 = []
@@ -251,20 +263,27 @@ def statistics():
 
         n1 = d.pr.a9.split('; ')
 
+        # этот вопрос касался женских имен ("выберите имена, которые на ваш взгляд можно дать девочке")
         for key in gen_names1.keys():
+            # если пользователь выбрал имя, оно оказалось в ответе -- увеличивается "женский счетчик" данного имени
             if key in n1:
                 gen_names1[key][0] += 1
+            # если пользователь не выбрал имя, увеличивается "мужской счетчик"
             else:
                 gen_names1[key][1] += 1
         
         n2 = d.pr.a10.split('; ')
 
+        # этот вопрос про мужскиеа имен ("какие имена можно дать мальчику")
         for key in gen_names2.keys():
+            # соответственно, обратная схема. если имя оказалось среди выбранных -- "мужской счетчик"
             if key in n2:
                 gen_names2[key][1] += 1
+            # если нет, что "женский"
             else:
                 gen_names2[key][0] += 1
 
+        # с другими двумя группами имен то же
         n3 = d.pr.a11.split('; ')
 
         for key in gen_names3.keys():
@@ -308,7 +327,7 @@ def statistics():
     # все фамилии из вопроса 7 сортируем по убыванию количества их отметок (самые известные сверху)
     sorted_surn = sorted(surn_stat.items(), key=lambda item: item[1][0], reverse=True)
 
-    #
+    # проходясь по каждому имени в словарях для вопросов 9-12, добавляем данные в соответствующие списки
     for key in gen_names1.keys():
         f_count1.append(gen_names1[key][0])
         m_count1.append(gen_names1[key][1])
@@ -329,7 +348,10 @@ def statistics():
         m_count2.append(gen_names4[key][1])
         names2.append(gen_names4[key][2])
 
+    # делаем первый график
+    # подписи столбцов -- список имен
     values = names1
+    # значения столбцов -- количества "женских" и "мужских" отметок на каждое имя
     female1 = f_count1
     male1 = m_count1
     width = 0.3
@@ -337,6 +359,7 @@ def statistics():
     fig = plt.figure(figsize=(10, 6))
     ax = fig.add_subplot()
 
+    # задаем "женский" и "мужской" столбики, делаем их разных цветов
     rect1 = ax.bar(x - width/2, female1, width, label='female', color='plum')
     rect2 = ax.bar(x + width/2, male1, width, label='male', color='indigo')
     # ax.set_title('Пример групповой диаграммы')
@@ -346,9 +369,10 @@ def statistics():
     ax.bar_label(rect1)
     ax.bar_label(rect2)
     ax.legend()
+    # и сохраняем график картинкой, чтобы вставить в html
     plt.savefig('static/gen_names1.png')
 
-
+    # все то же самое для второго графика
     values = names2
     female2 = f_count2
     male2 = m_count2
@@ -369,7 +393,7 @@ def statistics():
     plt.savefig('static/gen_names2.png')
  
 
-
+    # передаем все полученные данные в html-файл со статистикой
     return render_template('statistics.html', n_resp=n_resp, know_kor=know_kor, know_kor_per=know_kor_per, sorted_surn=sorted_surn,
                            names_f=names_f, names_m=names_m, suggested=suggested, f_count1=f_count1, m_count1=m_count1, names1=names1)
 
