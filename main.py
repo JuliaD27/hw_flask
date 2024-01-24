@@ -140,7 +140,9 @@ def statistics():
     know_kor_per = round(know_kor / n_resp * 100, 2)
     
     
-
+    # словарь фамилий, из которых респонденту нужно выбрать знакомые
+    # ключ -- значение из html файла, которое вносится в db, число в списке -- количество отметок на фамилию
+    # потом кириллица -- для отображения в статистике
     surn_stat = {
         'Kim': [0, 'Ким'],
         'Lee': [0, 'Ли'],
@@ -159,6 +161,7 @@ def statistics():
         'No': [0, 'Не знаю']
     }
 
+    # пока пустой словарь для имен, которые предложат респонденты
     suggested = {
 
     }
@@ -207,6 +210,9 @@ def statistics():
     m_count2 = []
     names2 = []
 
+    # словарь женских имен, которые было предложено просклонять
+    # число в списке -- количество совпадений введеной пользователем формы с начальной формой
+    # пустой список -- список введеных форм имени, которые отличаются от начальной
     names_f = {
         "Кинам": [0, []],
         "Минсо": [0, []],
@@ -215,6 +221,7 @@ def statistics():
         "Ёнджин": [0, []]
     }
 
+    # такой же список для мужских имен
     names_m = {
         "Сонхва": [0, []],
         "Юбин": [0, []],
@@ -223,7 +230,9 @@ def statistics():
         "Кинам": [0, []]
     }
 
+    # в цикле будем проходить по данным, который ввел каждый пользователь (d -- все ответы одного пользователя)
     for d in alldata:
+        # для тех фамилий из словаря, которые нашлись в ответах пользователя, увеличивается счетчик отметок
         for key in surn_stat.keys():
             if key in d.pr.a7:
                 surn_stat[key][0] += 1
@@ -231,8 +240,11 @@ def statistics():
         l = d.pr.a8.split('; ')
         for name in l:
             name = name.strip(' ')
+            # если предложенное пользователем имя еще не встречалось, 
+            # оно вносится в словарь как ключ (значение -- количество упоминаний этого имени разными пользователями)
             if name not in suggested.keys() and name.lower() != 'нет' and name != '':
                 suggested[name] = 1
+            # если имя уже есть в словаре, просто увеличивается счетчик
             elif name in suggested.keys():
                 suggested[name] += 1
                 
@@ -269,18 +281,22 @@ def statistics():
             else:
                 gen_names4[key][0] += 1
 
-
+        # списки женских и мужских имен из вопросов 13-22
         female_names = [d.pr.a13, d.pr.a16, d.pr.a18, d.pr.a21, d.pr.a22]
         male_names = [d.pr.a14, d.pr.a15, d.pr.a17, d.pr.a19, d.pr.a20]
         
         for i, key in enumerate(names_f.keys()):
+            # если предложенная пользователем форма есть среди начальных форм словаря, то счетчик увеличивается
+            #и список пополняется введенной формой имени
             if key in female_names:
                 names_f[key][0] += 1
                 if key not in names_f[key][1]:
                     names_f[key][1].append(key)
+            # если форма не совпадает с начальной, то просто вносится в список
             elif female_names[i].strip(' ') not in names_f[key][1]:
                 names_f[key][1].append(female_names[i].strip(' '))
-        
+
+        # то же с мужскими именами
         for i, key in enumerate(names_m.keys()):
             if key in male_names:
                 names_m[key][0] += 1
@@ -289,8 +305,10 @@ def statistics():
             elif male_names[i].strip(' ') not in names_m[key][1]:
                 names_m[key][1].append(male_names[i].strip(' '))
 
+    # все фамилии из вопроса 7 сортируем по убыванию количества их отметок (самые известные сверху)
     sorted_surn = sorted(surn_stat.items(), key=lambda item: item[1][0], reverse=True)
 
+    #
     for key in gen_names1.keys():
         f_count1.append(gen_names1[key][0])
         m_count1.append(gen_names1[key][1])
